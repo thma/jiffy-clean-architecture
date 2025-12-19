@@ -75,16 +75,16 @@ public class CustomerScoreUseCase {
 
     /**
      * Calculate score with error handling.
-     * Uses the same effects but adds recovery logic.
+     * Uses recoverWith to perform effectful error logging before returning default score.
      */
     @Uses({LogEffect.class, OrderRepositoryEffect.class, ReturnRepositoryEffect.class})
     public Eff<Integer> calculateScoreWithRecovery(Long customerId) {
-        return calculateScore(customerId)
-            .recover(error -> {
-                // Log error and return default score
-                log(new LogEffect.Error("Failed to calculate score for customer " + customerId, error));
-                return 0; // Default score on error
-            });
+        return calculateScoreParallel(customerId)
+            .recoverWith(error ->
+                // Log error effect, then return default score
+                log(new LogEffect.Error("Failed to calculate score for customer " + customerId, error))
+                    .map(v -> 0)
+            );
     }
 
     // Helper methods for creating effects with proper annotations
