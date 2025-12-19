@@ -385,7 +385,8 @@ public class CustomerScoreController {
 ### Prerequisites
 
 - Java 21+
-- Maven 3.8+
+- Maven 3.9+
+- Spring Boot 4.0 (included via parent pom)
 
 ### Build and Test
 
