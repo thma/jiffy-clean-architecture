@@ -44,7 +44,7 @@ public class OrderLookupUseCaseTest {
         orderHandler.addOrdersForCustomer(99L, List.of(expectedOrder));
 
         // When
-        Optional<Order> result = useCase.lookupOrder(1L).runWith(buildRuntime());
+        Optional<Order> result = buildRuntime().run(useCase.lookupOrder(1L));
 
         // Then
         assertTrue(result.isPresent());
@@ -58,7 +58,7 @@ public class OrderLookupUseCaseTest {
         // Given - no orders in the handler
 
         // When
-        Optional<Order> result = useCase.lookupOrder(999L).runWith(buildRuntime());
+        Optional<Order> result = buildRuntime().run(useCase.lookupOrder(999L));
 
         // Then
         assertTrue(result.isEmpty());
@@ -82,7 +82,7 @@ public class OrderLookupUseCaseTest {
                 .build();
 
         // When
-        Optional<Order> result = useCase.lookupOrder(1L).runWith(runtime);
+        Optional<Order> result = runtime.run(useCase.lookupOrder(1L));
 
         // Then
         assertTrue(result.isEmpty());

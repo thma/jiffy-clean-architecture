@@ -35,7 +35,7 @@ public class ComputeScoreUseCaseTest {
             .build();
 
     // When
-    int score = customerScoreUseCase.calculateScore(customerId).runWith(runtime);
+    int score = runtime.run(customerScoreUseCase.calculateScore(customerId));
 
     // Then
     assertEquals(100, score);
@@ -57,7 +57,7 @@ public class ComputeScoreUseCaseTest {
             .build();
 
     // When
-    int score = customerScoreUseCase.calculateScoreWithRecovery(customerId).runWith(runtime);
+    int score = runtime.run(customerScoreUseCase.calculateScoreWithRecovery(customerId));
 
     // Then - should succeed with normal score calculation
     assertEquals(100, score);
@@ -88,7 +88,7 @@ public class ComputeScoreUseCaseTest {
             .build();
 
     // When
-    int score = customerScoreUseCase.calculateScoreWithRecovery(customerId).runWith(runtime);
+    int score = runtime.run(customerScoreUseCase.calculateScoreWithRecovery(customerId));
 
     // Then - should recover and return default score of 0
     assertEquals(0, score);

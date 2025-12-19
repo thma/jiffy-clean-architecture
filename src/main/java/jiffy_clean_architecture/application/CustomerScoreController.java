@@ -1,6 +1,7 @@
 package jiffy_clean_architecture.application;
 
 import jiffy_clean_architecture.usecases.CustomerScoreUseCase;
+import org.jetbrains.annotations.NotNull;
 import org.jiffy.core.Eff;
 import org.jiffy.core.EffectRuntime;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,13 @@ public class CustomerScoreController {
      * @return the calculated score
      */
     @GetMapping("/{id}/score")
-    public ResponseEntity<ScoreResponse> getScore(@PathVariable Long id) {
+    public ResponseEntity<@NotNull ScoreResponse> getScore(@PathVariable Long id) {
         try {
             // Create the effect computation
             Eff<Integer> scoreEffect = useCase.calculateScore(id);
 
             // Run the effect with the runtime
-            Integer score = scoreEffect.runWith(runtime);
+            Integer score = runtime.run(scoreEffect);
 
             return ResponseEntity.ok(new ScoreResponse(id, score, "Success"));
         } catch (Exception e) {
@@ -52,13 +53,13 @@ public class CustomerScoreController {
      * Calculate customer score with error recovery.
      */
     @GetMapping("/{id}/score-safe")
-    public ResponseEntity<ScoreResponse> getScoreSafe(@PathVariable Long id) {
+    public ResponseEntity<@NotNull ScoreResponse> getScoreSafe(@PathVariable Long id) {
         try {
             // Create the effect computation with recovery
             Eff<Integer> scoreEffect = useCase.calculateScoreWithRecovery(id);
 
             // Run the effect with the runtime
-            Integer score = scoreEffect.runWith(runtime);
+            Integer score = runtime.run(scoreEffect);
 
             return ResponseEntity.ok(new ScoreResponse(id, score, "Success"));
         } catch (Exception e) {
@@ -72,13 +73,13 @@ public class CustomerScoreController {
      * Calculate customer score using sequential fetching.
      */
     @GetMapping("/{id}/score-sequential")
-    public ResponseEntity<ScoreResponse> getScoreSequential(@PathVariable Long id) {
+    public ResponseEntity<@NotNull ScoreResponse> getScoreSequential(@PathVariable Long id) {
         try {
             // Create the effect computation
             Eff<Integer> scoreEffect = useCase.calculateScore(id);
 
             // Run the effect with the runtime
-            Integer score = scoreEffect.runWith(runtime);
+            Integer score = runtime.run(scoreEffect);
 
             return ResponseEntity.ok(new ScoreResponse(id, score, "Success"));
         } catch (Exception e) {
@@ -90,27 +91,6 @@ public class CustomerScoreController {
     /**
      * Response DTO for score endpoints.
      */
-    public static class ScoreResponse {
-        private final Long customerId;
-        private final Integer score;
-        private final String status;
-
-        public ScoreResponse(Long customerId, Integer score, String status) {
-            this.customerId = customerId;
-            this.score = score;
-            this.status = status;
-        }
-
-        public Long getCustomerId() {
-            return customerId;
-        }
-
-        public Integer getScore() {
-            return score;
-        }
-
-        public String getStatus() {
-            return status;
-        }
+    public record ScoreResponse( Long customerId, Integer score, String status) {
     }
 }

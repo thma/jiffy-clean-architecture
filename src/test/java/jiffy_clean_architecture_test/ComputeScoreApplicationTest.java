@@ -30,7 +30,8 @@ public class ComputeScoreApplicationTest {
     var response = this.restTemplate.getForObject(
         "http://localhost:" + port + "/customers/1/score",
         CustomerScoreController.ScoreResponse.class);
-    assertEquals(100, response.getScore());
+      assert response != null;
+      assertEquals(100, response.score());
   }
 
 
