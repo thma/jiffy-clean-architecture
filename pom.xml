@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>JavaCleanArchitecture</artifactId>
+    <artifactId>JiffyCleanArchitecture</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -61,23 +61,6 @@
             <artifactId>jiffy</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-
-
-        <!-- Junit Quickcheck-->
-        <dependency>
-            <groupId>com.pholser</groupId>
-            <artifactId>junit-quickcheck-core</artifactId>
-            <version>1.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.pholser</groupId>
-            <artifactId>junit-quickcheck-generators</artifactId>
-            <version>1.0</version>
-            <scope>test</scope>
-        </dependency>
-
 
     </dependencies>
 

@@ -1,4 +1,4 @@
-package c_clean_architecture_test;
+package jiffy_clean_architecture_test;
 
 import jiffy_clean_architecture.application.CustomerScoreApplication;
 import jiffy_clean_architecture.application.CustomerScoreController;
@@ -24,7 +24,7 @@ public class ComputeScoreApplicationTest {
   private TestRestTemplate restTemplate;
 
   @Test
-  void testComputeScore() throws Exception {
+  void testComputeScore() {
     var response = this.restTemplate.getForObject(
         "http://localhost:" + port + "/customers/1/score",
         CustomerScoreController.ScoreResponse.class);

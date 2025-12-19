@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Return {
-  private Long id;
+  private final Long id;
   private Long orderId;
   private String reason;
-  private LocalDate createdAt;
+  private final LocalDate createdAt;
   private BigDecimal amount;
 
   public Return(Long id, Long orderId, String reason, LocalDate createdAt, BigDecimal amount) {

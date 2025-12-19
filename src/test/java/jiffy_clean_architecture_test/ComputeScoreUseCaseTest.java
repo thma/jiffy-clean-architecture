@@ -1,4 +1,4 @@
-package c_clean_architecture_test;
+package jiffy_clean_architecture_test;
 
 import jiffy_clean_architecture.usecases.CustomerScoreUseCase;
 import jiffy_clean_architecture.usecases.LogEffect;

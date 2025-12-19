@@ -40,17 +40,17 @@ public class InMemoryReturnRepositoryHandler implements EffectHandler<ReturnRepo
     @Override
     @SuppressWarnings("unchecked")
     public <T> T handle(ReturnRepositoryEffect<?> effect) {
-        if (effect instanceof ReturnRepositoryEffect.FindByCustomerId findByCustomerId) {
-            return (T) findByCustomerId(findByCustomerId.customerId());
-        } else if (effect instanceof ReturnRepositoryEffect.FindById findById) {
-            return (T) findById(findById.returnId());
-        } else if (effect instanceof ReturnRepositoryEffect.Save save) {
-            return (T) save(save.returnItem());
-        } else if (effect instanceof ReturnRepositoryEffect.DeleteById deleteById) {
-            deleteById(deleteById.returnId());
+        if (effect instanceof ReturnRepositoryEffect.FindByCustomerId(Long customerId)) {
+            return (T) findByCustomerId(customerId);
+        } else if (effect instanceof ReturnRepositoryEffect.FindById(Long returnId)) {
+            return (T) findById(returnId);
+        } else if (effect instanceof ReturnRepositoryEffect.Save(Return returnItem)) {
+            return (T) save(returnItem);
+        } else if (effect instanceof ReturnRepositoryEffect.DeleteById(Long returnId)) {
+            deleteById(returnId);
             return null;
-        } else if (effect instanceof ReturnRepositoryEffect.CountByCustomerId countByCustomerId) {
-            return (T) countByCustomerId(countByCustomerId.customerId());
+        } else if (effect instanceof ReturnRepositoryEffect.CountByCustomerId(Long customerId)) {
+            return (T) countByCustomerId(customerId);
         }
         throw new IllegalArgumentException("Unknown effect: " + effect);
     }
@@ -96,17 +96,6 @@ public class InMemoryReturnRepositoryHandler implements EffectHandler<ReturnRepo
         return (long) returnsByCustomer.getOrDefault(customerId, Collections.emptyList()).size();
     }
 
-    /**
-     * Add returns for a specific customer (for test setup).
-     */
-    public void addReturnsForCustomer(Long customerId, List<Return> returns) {
-        returnsByCustomer.put(customerId, new ArrayList<>(returns));
-        for (Return returnItem : returns) {
-            if (returnItem.getId() != null) {
-                returnsById.put(returnItem.getId(), returnItem);
-            }
-        }
-    }
 
     /**
      * Clear all data.
