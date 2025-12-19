@@ -82,7 +82,7 @@ public class CustomerScoreUseCase {
         return calculateScore(customerId)
             .recover(error -> {
                 // Log error and return default score
-                var log = log(new LogEffect.Error("Failed to calculate score for customer " + customerId, error));
+                log(new LogEffect.Error("Failed to calculate score for customer " + customerId, error));
                 return 0; // Default score on error
             });
     }
