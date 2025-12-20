@@ -15,19 +15,13 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>21</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <java.version>25</java.version>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <spring-boot-admin.version>3.4.0</spring-boot-admin.version>
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.javatuples</groupId>
-            <artifactId>javatuples</artifactId>
-            <version>1.2</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,7 +48,7 @@
         <dependency>
             <groupId>org.jiffy</groupId>
             <artifactId>jiffy</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -70,7 +64,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.14.1</version>
                 <executions>
                   <!-- Compile application with processor for jiffy Effect Annotations-->
                     <execution>
@@ -80,17 +74,23 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <source>21</source>
-                            <target>21</target>
+                            <source>25</source>
+                            <target>25</target>
                             <annotationProcessors>
                                 <processor>org.jiffy.processor.EffectProcessor</processor>
                             </annotationProcessors>
+                            <compilerArgs>
+                                <arg>--enable-preview</arg>
+                            </compilerArgs>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <source>25</source>
+                    <target>25</target>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
